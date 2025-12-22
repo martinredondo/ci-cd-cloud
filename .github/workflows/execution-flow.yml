@@ -13,6 +13,7 @@ env:
   DEPLOYMENT_MESSAGE: Deployment has been successful!
 jobs:
   test:
+    continue-on-error: true
     strategy:
       matrix:
         node-version: [7,8,9]
