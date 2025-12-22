@@ -1,13 +1,14 @@
 name: Autimated Testing
 on: 
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
   pull_request:
     types: 
       - closed
     branches:
       - main
+  workflow_dispatch:
 env:
   DEPLOYMENT_MESSAGE: Deployment has been successful!
 jobs:
