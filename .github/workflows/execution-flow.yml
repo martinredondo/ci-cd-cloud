@@ -1,8 +1,8 @@
 name: Autimated Testing
 on: 
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
   pull_request:
     types: 
       - closed
@@ -13,6 +13,9 @@ env:
   DEPLOYMENT_MESSAGE: Deployment has been successful!
 jobs:
   test:
+    strategy:
+      matrix:
+        node-version: [12,14,16]
     runs-on: ubuntu-latest
     steps: 
       - name: Get code
