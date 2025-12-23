@@ -1,0 +1,56 @@
+name: scheduled cleanup
+on:
+    schedule:
+    # Runs every Sunday at 02:00 UTC
+        - cron: '0 2 * * 0'
+jobs:
+    cleanup:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+            - name: Install GitHub CLI
+              run: sudo apt-get install -y gh
+            - name: delete old branches
+              env:
+                GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+                DAYS_OLD: 90
+                PROTECTED_BRANCHES: "main develop"
+                DRY_RUN: "false"
+              run: |
+                set -e
+                cutoff_date=$(date -d "$DAYS_OLD days ago" +%s)
+                echo "Deleting branches older than $DAYS_OLD days"
+                echo "Protected branches: $PROTECTED_BRANCHES"
+                echo "Dry run: $DRY_RUN"
+                echo
+
+                gh api repos/${{ github.repository }}/branches --paginate \
+                    | jq -r '.[].name' \
+                    | while read branch; do
+
+                    # Skip protected branches
+                    if echo "$PROTECTED_BRANCHES" | grep -wq "$branch"; then
+                        echo "Skipping protected branch: $branch"
+                        continue
+                    fi
+
+                    # Get last commit date
+                    commit_date=$(gh api repos/${{ github.repository }}/commits/$branch \
+                        | jq -r '.commit.committer.date')
+
+                    commit_ts=$(date -d "$commit_date" +%s)
+
+                    if [ "$commit_ts" -lt "$cutoff_date" ]; then
+                        if [ "$DRY_RUN" = "true" ]; then
+                        echo "[DRY RUN] Would delete: $branch"
+                        else
+                        echo "Deleting branch: $branch"
+                        gh api -X DELETE repos/${{ github.repository }}/git/refs/heads/$branch
+                        fi
+                    else
+                        echo "Keeping branch: $branch"
+                    fi
+                    done
+
+
