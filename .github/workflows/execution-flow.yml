@@ -33,5 +33,12 @@ jobs:
         run: npm run test
       - name: Build code
         run: npm run build
+      - name: Custom Action
+        id: hello
+        uses: actions/hello-world-javascript-action@v1
+        with:
+          who-to-greet: 'Martin Redondo'
+      - name: Show output
+        run: echo "The action greeted at ${{steps.hello.outputs.time}}"
       - name: Deploy project
         run: echo "${{env.DEPLOYMENT_MESSAGE}}"
