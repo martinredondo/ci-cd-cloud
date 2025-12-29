@@ -33,6 +33,11 @@ jobs:
         run: npm run test
       - name: Build code
         run: npm run build
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-files
+          path: dist
       - name: Custom Action
         id: hello
         uses: actions/hello-world-javascript-action@v1
