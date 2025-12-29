@@ -1,0 +1,26 @@
+name: "Hello World"
+description: "Greet someone and record the time"
+on:
+  workflow_dispatch:
+inputs:
+    who-to-greet:
+      description: "Who to greet"
+      required: true
+      default: "World"
+outputs:
+    time:
+      description: "The time we greeted you"
+runs:
+    using: node20
+    main: index.js
+jobs:
+    greet:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Hello world action step
+              id: Good_morning
+              uses: actions/hello-world-javascript-action@v1
+              with:
+                who-to-greet: ${{ github.event.inputs['who-to-greet'] }}
+            - name: Get the time
+              run: echo "The time is ${{ steps.Good_morning.outputs.time }}"
