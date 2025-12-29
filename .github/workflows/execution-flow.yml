@@ -36,8 +36,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: dist-files
-          path: dist
+          name: project-build
+          path: ./build
       - name: Custom Action
         id: hello
         uses: actions/hello-world-javascript-action@v1
