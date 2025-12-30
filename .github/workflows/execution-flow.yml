@@ -30,14 +30,15 @@ jobs:
       - name: Lint
         run: npm run lint
       - name: Test code with coverage
-        run: |
-          npm run test -- \
-            --coverage \
+        run: npm run test:ci
+      - name: generate html coverage report
+        if: success()
+        run: npm run coverage:html
       - name: Upload coverage artifact
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-report-${{matrix.node-version}}
+          name: coverage-report-${{matrix.node-version}}-html
           path: coverage/**
       - name: Show coverage percentage
         if: success()

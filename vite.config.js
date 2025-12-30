@@ -9,6 +9,21 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './src/test/setup.js',
     reporters: ['json'],
-    outputFile: 'test.json'
+    outputFile: 'test.json',
+    coverage: {
+      enabled: true,
+      provider: 'v8',
+      reporter: ['text', 'html', 'lcov'],
+      reportsDirectory: './coverage',
+      exclude: [
+        'node_modules/',
+        'vite.config.ts',
+        'vitest.config.ts',
+        'src/**/*.d.ts',
+        'src/**/__mocks__/**',
+        'src/**/stories/**'
+
+      ]
+    }
   },
 });
