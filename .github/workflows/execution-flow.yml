@@ -31,6 +31,7 @@ jobs:
         run: npm run lint
       - name: Test code with coverage
         run: npm run test:ci
+        timeout-minutes: 3
       - name: generate html coverage report
         if: success()
         run: npm run coverage:html
