@@ -29,8 +29,25 @@ jobs:
         run: npm ci
       - name: Lint
         run: npm run lint
-      - name: Test code
-        run: npm run test
+      - name: Test code with coverage
+        run: |
+          npm run test -- \
+            --coverage \
+            --coverageReporters=json-summary \
+            --coverageReporters=lcov \
+            --coverageReporters=html \
+            --coverageReporters=text
+      - name: Upload coverage artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report-${{matrix.node-version}}
+          path: coverage/**
+      - name: Show coverage percentage
+        if: success()
+        run: |
+          COVERAGE=$(cat ./coverage/coverage-summary.json | jq '.total.lines.pct')
+          echo "Coverage percentage is: $COVERAGE%"
       - name: Build code
         run: npm run build
       - name: Upload artifact
