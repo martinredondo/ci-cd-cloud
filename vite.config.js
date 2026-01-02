@@ -14,6 +14,7 @@ export default defineConfig({
       enabled: true,
       provider: 'v8',
       reporter: ['text', 'html', 'lcov'],
+      failUnderThreshold: true,
       reportsDirectory: './coverage',
       thresholds: {
         lines: 80,
