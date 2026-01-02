@@ -29,7 +29,8 @@ export default defineConfig({
         'src/**/*.d.ts',
         'src/**/__mocks__/**',
         'src/**/stories/**',
-        'src/test/**'
+        'src/test/**',
+        'src/components/**.test.jsx'
 
       ],
       include: [
