@@ -27,7 +27,8 @@ export default defineConfig({
         'vitest.config.ts',
         'src/**/*.d.ts',
         'src/**/__mocks__/**',
-        'src/**/stories/**'
+        'src/**/stories/**',
+        'src/test/**'
 
       ],
       include: [
