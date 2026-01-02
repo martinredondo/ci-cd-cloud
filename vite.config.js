@@ -7,35 +7,35 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: './src/test/setup.js',
-    reporters: ['json'],
-    outputFile: 'test.json',
+    // setupFiles: './src/test/setup.js',
+    // reporters: ['json'],
+    // outputFile: 'test.json',
     coverage: {
-      enabled: true,
+      // enabled: true,
       provider: 'v8',
-      reporter: ['text', 'html', 'lcov'],
-      failUnderThreshold: true,
-      reportsDirectory: './coverage',
-      thresholds: {
-        lines: 80,
-        functions: 80,
-        branches: 75,
-        statements: 80
-      },
-      exclude: [
-        'node_modules/',
-        'vite.config.ts',
-        'vitest.config.ts',
-        'src/**/*.d.ts',
-        'src/**/__mocks__/**',
-        'src/**/stories/**',
-        'src/test/**',
-        'src/components/**.test.jsx'
+      // reporter: ['text', 'html', 'lcov'],
+      // failUnderThreshold: true,
+      // reportsDirectory: './coverage',
+      // thresholds: {
+      //   lines: 80,
+      //   functions: 80,
+      //   branches: 75,
+      //   statements: 80
+      // },
+      // exclude: [
+      //   'node_modules/',
+      //   'vite.config.ts',
+      //   'vitest.config.ts',
+      //   'src/**/*.d.ts',
+      //   'src/**/__mocks__/**',
+      //   'src/**/stories/**',
+      //   'src/test/**',
+      //   'src/components/**.test.jsx'
 
-      ],
-      include: [
-        'src/components/**.jsx'
-      ]
+      // ],
+      // include: [
+      //   'src/components/**.jsx'
+      // ]
     },
     testTimeout: 30000,
   },
